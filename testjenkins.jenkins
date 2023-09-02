@@ -4,9 +4,6 @@ pipeline {
     agent { 
         label 'master'
         }
-    environment {
-            BUILDID=$BUILD_ID
-    }
     options {
         buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
         timestamps()
@@ -17,8 +14,8 @@ pipeline {
             script
             {
                 echo " ============== Start Building Image =================="  
-                echo "Build Id: ${BUILDID}"
-                sh "docker build -t fromgit${BUILDID} ."
+                echo "Build Id: ${BUILD_ID}"
+                sh "docker build -t fromgit${BUILD_ID} ."
             }
             }
         }
