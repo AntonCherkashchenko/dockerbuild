@@ -17,8 +17,8 @@ pipeline {
             script
             {
                 echo " ============== Start Building Image =================="  
-                echo "Build Id: $BUILD_ID"
-                sh "docker build -t fromgit:$BUILD_ID . "
+                echo "Build Id: $$BUILD_ID"
+                docker build -t fromgit:$BUILD_ID .
             }
             }
         }
@@ -28,10 +28,10 @@ pipeline {
             {
                 echo " ============== Stop And Remove Existing Container And Image =================="  
                 oldBuildId=$((BUILD_ID - 1))
-                sh "docker stop -t fromgit:$oldBuildId"
-                sh "docker rmi fromgit:$oldBuildId"
-                sh "docker rm fromgit:$oldBuildId"
-                sh "docker image prune -a"
+                docker stop -t fromgit:$oldBuildId
+                docker rmi fromgit:$oldBuildId
+                docker rm fromgit:$oldBuildId
+                docker image prune -a
             }
             }
         }
@@ -41,7 +41,7 @@ pipeline {
             {
                 echo " ============== Running Container ==================" 
                 oldBuildId=$((BUILD_ID - 1))
-                sh "docker run -d fromgit:$BUILD_ID"
+                docker run -d fromgit:$BUILD_ID
             }
             }
         }
