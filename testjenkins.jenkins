@@ -17,6 +17,7 @@ pipeline {
                 echo "Build Id: ${BUILD_ID}"
                 buildid=$((BUILD_ID - 1))
                 sh "docker build -t fromgit${buildid} ."
+                echo $buildid
             }
             }
         }
