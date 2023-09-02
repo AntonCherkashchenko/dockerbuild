@@ -16,7 +16,7 @@ pipeline {
     echo "Build Id: ${BUILD_ID}"
     def buildId = 20
     sh "docker build -t fromgit:${buildId} ." // Обратите внимание на изменение здесь
-    echo $buildId
+    echo ${buildId}
 }
 
         }
