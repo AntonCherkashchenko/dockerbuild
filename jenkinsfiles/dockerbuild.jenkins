@@ -12,35 +12,36 @@ pipeline {
         timestamps()
     }
     stages {
-        stage("Stop and Remove Existing Container And Image") {
-            steps {
-            script 
-            {
-                echo " ============== Stop And Remove Existing Container And Image =================="  
-                sh "docker stop fromgit:latest"
-                sh "docker rmi fromgit:latest"
-                sh "docker rm fromgit:latest"
-                sh "docker image prune -a"
-            }
-            }
-        }
         stage("Create Docker Image") {
             steps {
             script
             {
                 echo " ============== Start Building Image =================="  
                 echo "Build Id: $BUILD_ID"
-                sh "docker build -t fromgit:latest ."
+                sh "docker build -t fromgit:${BUILD_ID} ."
             }
             }
         }
-
+        stage("Stop and Remove Existing Container And Image") {
+            steps {
+            script 
+            {
+                echo " ============== Stop And Remove Existing Container And Image =================="  
+                def oldbuildId = env.BUILD_ID.toInteger() - 1
+                sh "docker stop fromgit:${BUILD_ID}"
+                sh "docker rmi fromgit:${BUILD_ID}"
+                sh "docker rm fromgit:${BUILD_ID}"
+                sh "docker image prune -a"
+            }
+            }
+        }
+        
         stage("Running Container") {
             steps {
             script 
             {
                 echo " ============== Running Container ==================" 
-                sh "docker run -d fromgit:latest"
+                sh "docker run -d fromgit:${BUILD_ID}"
             }
             }
         }
