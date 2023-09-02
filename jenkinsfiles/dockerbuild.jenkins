@@ -41,7 +41,7 @@ pipeline {
             script 
             {
                 echo " ============== Running Container ==================" 
-                sh "docker run -d fromgit${BUILD_ID}"
+                sh "docker run -d --name fromgit${BUILD_ID} --restart=always fromgit${BUILD_ID}"
             }
             }
         }
