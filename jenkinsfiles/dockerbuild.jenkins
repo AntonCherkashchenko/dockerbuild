@@ -17,7 +17,7 @@ pipeline {
             script 
             {
                 echo " ============== Stop And Remove Existing Container And Image =================="  
-                sh "docker stop -t fromgit:latest"
+                sh "docker stop fromgit:latest"
                 sh "docker rmi fromgit:latest"
                 sh "docker rm fromgit:latest"
                 sh "docker image prune -a"
