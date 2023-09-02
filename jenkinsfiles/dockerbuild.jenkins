@@ -14,35 +14,35 @@ pipeline {
     stages {
         stage("Create Docker Image") {
             steps {
-            script  
-                echo " ============== Start Building Image =================="
-                {   
-                    echo "Build Id: $BUILD_ID"
-                	sh "docker build -t fromgit:$BUILD_ID . "
-                }
+            script
+            {
+                echo " ============== Start Building Image =================="  
+                echo "Build Id: $BUILD_ID"
+                sh "docker build -t fromgit:$BUILD_ID . "
+            }
             }
         }
         stage("Stop and Remove Existing Container And Image") {
             steps {
             script 
-                echo " ============== Stop And Remove Existing Container And Image =================="
-                {   
-                    oldBuildId=$((BUILD_ID - 1))
-                	sh "docker stop -t fromgit:$oldBuildId"
-                    sh "docker rmi fromgit:$oldBuildId"
-                    sh "docker rm fromgit:$oldBuildId"
-                    sh "docker image prune -a"
-                }
+            {
+                echo " ============== Stop And Remove Existing Container And Image =================="  
+                oldBuildId=$((BUILD_ID - 1))
+                sh "docker stop -t fromgit:$oldBuildId"
+                sh "docker rmi fromgit:$oldBuildId"
+                sh "docker rm fromgit:$oldBuildId"
+                sh "docker image prune -a"
+            }
             }
         }
         stage("Running Container") {
             steps {
-            script
-                echo " ============== Running Container =================="
-                {   
-                    oldBuildId=$((BUILD_ID - 1))
-                	sh "docker run -d fromgit:$BUILD_ID"
-                }
+            script 
+            {
+                echo " ============== Running Container ==================" 
+                oldBuildId=$((BUILD_ID - 1))
+                sh "docker run -d fromgit:$BUILD_ID"
+            }
             }
         }
     }
