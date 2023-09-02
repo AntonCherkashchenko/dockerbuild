@@ -11,15 +11,14 @@ pipeline {
     stages {
         stage("Create Docker Image") {
             steps {
-            script
-            {
-                echo " ============== Start Building Image =================="  
-                echo "Build Id: ${BUILD_ID}"
-                def buildId = 20
-                sh "docker build -t fromgit${buildid} ."
-                echo $buildid
-            }
-            }
+           script {
+    echo " ============== Start Building Image =================="
+    echo "Build Id: ${BUILD_ID}"
+    def buildId = 20
+    sh "docker build -t fromgit:${buildId} ." // Обратите внимание на изменение здесь
+    echo $buildId
+}
+
         }
     }
 }
