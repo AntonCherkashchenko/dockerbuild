@@ -1,0 +1,23 @@
+properties([disableConcurrentBuilds()])
+
+pipeline {
+    agent { 
+        label 'master'
+        }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
+        timestamps()
+    }
+    stages {
+        stage("Create Docker Image") {
+            steps {
+            script
+            {
+                echo " ============== Start Building Image =================="  
+                echo "Build Id: $BUILD_ID"
+                docker build -t fromgit:${BUILD_ID} .
+            }
+            }
+        }
+    }
+}
