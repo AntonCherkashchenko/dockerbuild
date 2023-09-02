@@ -30,8 +30,6 @@ pipeline {
                 def oldbuildId = env.BUILD_ID.toInteger() - 1
                 sh "docker image prune -a -f"
                 sh "docker stop fromgit${oldbuildId}"
-                sh "docker rmi fromgit${oldbuildId}"
-                sh "docker rm fromgit${oldbuildId}"
             }
             }
         }
