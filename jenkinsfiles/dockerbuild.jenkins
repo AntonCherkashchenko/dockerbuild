@@ -27,7 +27,7 @@ pipeline {
             script 
             {
                 echo " ============== Stop And Remove Existing Container And Image =================="  
-                oldBuildId=$((BUILD_ID - 1))
+                sh "oldBuildId=$((BUILD_ID - 1))"
                 sh "docker stop -t fromgit:${oldBuildId}"
                 sh "docker rmi fromgit:${oldBuildId}"
                 sh "docker rm fromgit:${oldBuildId}"
