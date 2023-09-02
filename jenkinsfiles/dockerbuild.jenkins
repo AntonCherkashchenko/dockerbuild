@@ -28,9 +28,9 @@ pipeline {
             {
                 echo " ============== Stop And Remove Existing Container And Image =================="  
                 def oldbuildId = env.BUILD_ID.toInteger() - 1
-                sh "docker stop fromgit:${BUILD_ID}"
-                sh "docker rmi fromgit:${BUILD_ID}"
-                sh "docker rm fromgit:${BUILD_ID}"
+                sh "docker stop fromgit:${oldbuildId}"
+                sh "docker rmi fromgit:${oldbuildId}"
+                sh "docker rm fromgit:${oldbuildId}"
                 sh "docker image prune -a"
             }
             }
