@@ -18,7 +18,7 @@ pipeline {
             {
                 echo " ============== Start Building Image =================="  
                 echo "Build Id: $BUILD_ID"
-                sh "docker build -t fromgit:${BUILD_ID} ."
+                sh "docker build -t fromgit${BUILD_ID} ."
             }
             }
         }
@@ -28,9 +28,9 @@ pipeline {
             {
                 echo " ============== Stop And Remove Existing Container And Image =================="  
                 def oldbuildId = env.BUILD_ID.toInteger() - 1
-                sh "docker stop fromgit:${oldbuildId}"
-                sh "docker rmi fromgit:${oldbuildId}"
-                sh "docker rm fromgit:${oldbuildId}"
+                sh "docker stop fromgit${oldbuildId}"
+                sh "docker rmi fromgit${oldbuildId}"
+                sh "docker rm fromgit${oldbuildId}"
                 sh "docker image prune -a"
             }
             }
@@ -41,7 +41,7 @@ pipeline {
             script 
             {
                 echo " ============== Running Container ==================" 
-                sh "docker run -d fromgit:${BUILD_ID}"
+                sh "docker run -d fromgit${BUILD_ID}"
             }
             }
         }
