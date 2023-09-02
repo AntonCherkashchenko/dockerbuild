@@ -14,6 +14,7 @@ pipeline {
     stages {
         stage("Create Docker Image") {
             steps {
+            script  
                 echo " ============== Start Building Image =================="
                 {   
                     echo "Build Id: $BUILD_ID"
@@ -23,6 +24,7 @@ pipeline {
         }
         stage("Stop and Remove Existing Container And Image") {
             steps {
+            script 
                 echo " ============== Stop And Remove Existing Container And Image =================="
                 {   
                     oldBuildId=$((BUILD_ID - 1))
@@ -35,6 +37,7 @@ pipeline {
         }
         stage("Running Container") {
             steps {
+            script
                 echo " ============== Running Container =================="
                 {   
                     oldBuildId=$((BUILD_ID - 1))
