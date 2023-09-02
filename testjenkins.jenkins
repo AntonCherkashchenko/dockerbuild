@@ -14,7 +14,7 @@ pipeline {
            script {
     echo " ============== Start Building Image =================="
     echo "Build Id: ${BUILD_ID}"
-    def buildId = 20
+    def buildId = ${BUILD_ID}-1
     sh "docker build -t fromgit:${buildId} ."
 }
 
